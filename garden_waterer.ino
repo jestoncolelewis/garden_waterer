@@ -1,15 +1,18 @@
+int analogPin = A0; // input pin for moisture detector
+int moistureLevel = 0; // initialize moisture level
+
 void setup() {
-    // setup input pins for moisture detector
-    // setup network connection
-    // self identify bed
-    // get historical data
-    // get weather data
+    Serial.begin(9600);
 }
 
 void loop() {
-    // check moisture levels
-    // if moisture levels are below desired level start watering
-    // else delay 8 hours
-    // check weather for next 2 hours
-    // if rain expectation is above some percent wait??
+    moistureLevel = analogRead(analogPin); // get moisture levels
+    
+    if (moistureLevel < 200) { // if moisture levels are below desired level
+      // start pump
+      delay(1000 * 60 * 5); // ms * sec * min
+      // stop pump
+    }
+    // delay 8 hours
+    delay(1000 * 60 * 60 * 8); // ms * sec * min * hrs
 }
