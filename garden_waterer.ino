@@ -7,12 +7,14 @@ void setup() {
 
 void loop() {
     moistureLevel = analogRead(analogPin); // get moisture levels
+    Serial.print(moistureLevel);
+    delay(10000);
     
-    if (moistureLevel < 200) { // if moisture levels are below desired level
+    // if (moistureLevel > 350) { // if moisture levels are below desired level
       // start pump
-      delay(1000 * 60 * 5); // ms * sec * min
+      // delay(1000 * 60 * 5); // ms * sec * min
       // stop pump
-    }
+    // }
     // delay 8 hours
-    delay(1000 * 60 * 60 * 8); // ms * sec * min * hrs
+    // delay(1000 * 60 * 60 * 8); // ms * sec * min * hrs
 }
