@@ -16,9 +16,9 @@ void loop() {
     
     if (moistureLevel > 480) { // while moisture levels are below desired level
       digitalWrite(outputPin, HIGH); // start pump
-      delay(1000 * 60 * 5); // ms * sec * min
+      delay(1000 * 60); // * 5); // ms * sec * min
       digitalWrite(outputPin, LOW); //stop pump
     }
     // delay 8 hours
-    delay(1000 * 60 * 60 * 8); // ms * sec * min * hrs
+    // delay(1000 * 60 * 60 * 8); // ms * sec * min * hrs
 }
