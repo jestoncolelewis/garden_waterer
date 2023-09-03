@@ -1,13 +1,13 @@
 #include "plant.h"
 
-Plant jade(A0, 3, 480);
+Plant jade(A0, 3, 480); // plant object
 
 void setup() {
     Serial.begin(9600);
 }
 
 void loop() {
-    jade.setMoistureLevel(); // get moisture levels
+    jade.setMoistureLevel(); // set moisture levels
     Serial.print(jade.getMoistureLevel());
     Serial.println();
     delay(3000);
