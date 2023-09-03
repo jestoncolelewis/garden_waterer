@@ -1,6 +1,6 @@
 #include "plant.h"
 
-Plant jade(A0, 3, 0, 480);
+Plant jade(A0, 3, 480);
 
 void setup() {
     Serial.begin(9600);
