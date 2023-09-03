@@ -6,7 +6,7 @@
 class Plant {
 public:
     // constructor & destructor
-    Plant();
+    Plant(int ip, int op, int ml, int dl);
     Plant(const Plant &source);
     ~Plant();
 

@@ -1,8 +1,10 @@
 #include "plant.h"
 
 // constructor & destructor
-Plant::Plant() {}
-Plant::Plant(const Plant &source) {}
+Plant::Plant(int ip, int op, int ml, int dl)
+    :inputPin{ip}, outputPin{op}, moistureLevel{ml}, drynessLimit{dl} {}
+Plant::Plant(const Plant &source)
+    :inputPin{source.inputPin}, outputPin{source.outputPin}, moistureLevel{source.moistureLevel}, drynessLimit{source.drynessLimit} {}
 Plant::~Plant() {}
 
 // getters & setters
