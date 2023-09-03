@@ -1,23 +1,21 @@
-int analogPin = A0; // input pin for moisture detector
-int moistureLevel = 0; // initialize moisture level
-int outputPin = 3;
+#include "plant.h"
+
+Plant jade(A0, 3, 0, 480);
 
 void setup() {
     Serial.begin(9600);
-    pinMode(analogPin, INPUT);
-    pinMode(outputPin, OUTPUT);
 }
 
 void loop() {
-    moistureLevel = analogRead(analogPin); // get moisture levels
-    Serial.print(moistureLevel);
+    jade.setMoistureLevel(); // get moisture levels
+    Serial.print(jade.getMoistureLevel());
     Serial.println();
     delay(3000);
     
-    if (moistureLevel > 480) { // while moisture levels are below desired level
-      digitalWrite(outputPin, HIGH); // start pump
+    if (jade.getMoistureLevel() > jade.getDrynessLimit()) { // while moisture levels are below desired level
+      digitalWrite(jade.getOutput(), HIGH); // start pump
       delay(1000 * 60); // * 5); // ms * sec * min
-      digitalWrite(outputPin, LOW); //stop pump
+      digitalWrite(jade.getOutput(), LOW); //stop pump
     }
     // delay 8 hours
     // delay(1000 * 60 * 60 * 8); // ms * sec * min * hrs
