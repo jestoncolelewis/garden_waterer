@@ -22,7 +22,7 @@ public:
     void setDrynessLimit(int in);
 
     // methods
-    
+    void waterIfNeeded();
 
 private:
     int inputPin;

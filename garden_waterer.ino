@@ -12,11 +12,7 @@ void loop() {
     Serial.println();
     delay(3000);
     
-    if (jade.getMoistureLevel() > jade.getDrynessLimit()) { // while moisture levels are below desired level
-      digitalWrite(jade.getOutput(), HIGH); // start pump
-      delay(1000 * 60); // * 5); // ms * sec * min
-      digitalWrite(jade.getOutput(), LOW); //stop pump
-    }
+    jade.waterIfNeeded();
     // delay 8 hours
     // delay(1000 * 60 * 60 * 8); // ms * sec * min * hrs
 }
