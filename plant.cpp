@@ -38,9 +38,10 @@ void Plant::setDrynessLimit(int in) {
 
 //methods
 void Plant::waterIfNeeded() {
+    unsigned long startMillis = millis();
     if (this->getMoistureLevel() > this->getDrynessLimit()) { // while moisture levels are below desired level
       digitalWrite(this->getOutput(), HIGH); // start pump
-      delay(1000 * 60); // * 5); // ms * sec * min
+      while (millis() - startMillis < 1000 * 60 * 5); // ms * sec * min
       digitalWrite(this->getOutput(), LOW); //stop pump
     }
 }

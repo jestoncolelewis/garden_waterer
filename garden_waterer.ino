@@ -1,5 +1,6 @@
 #include "plant.h"
 
+unsigned long startMillis = millis();
 Plant jade(A0, 3, 480); // plant object
 
 void setup() {
@@ -14,5 +15,5 @@ void loop() {
     
     jade.waterIfNeeded();
     // delay 8 hours
-    // delay(1000 * 60 * 60 * 8); // ms * sec * min * hrs
+    while (millis() - startMillis < 1000 * 60 * 60 * 8);
 }
