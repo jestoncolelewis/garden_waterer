@@ -1,6 +1,8 @@
 #include "plant.h"
 
 unsigned long startMillis = millis();
+unsigned long eightHours = 1000 * 60 * 60 * 8;
+
 Plant jade(A0, 3, 480); // plant object
 
 void setup() {
@@ -13,7 +15,7 @@ void loop() {
     Serial.println();
     delay(3000);
     
-    jade.waterIfNeeded();
+    // jade.waterIfNeeded();
     // delay 8 hours
-    while (millis() - startMillis < 1000 * 60 * 60 * 8);
+    // while (millis() - startMillis < eightHours);
 }
