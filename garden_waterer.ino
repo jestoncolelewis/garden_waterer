@@ -16,6 +16,6 @@ void loop() {
     delay(3000);
     
     // jade.waterIfNeeded();
-    // delay 8 hours
-    // while (millis() - startMillis < eightHours);
+    
+    // while (millis() - startMillis < eightHours); // delay 8 hours
 }
