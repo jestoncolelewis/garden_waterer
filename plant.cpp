@@ -42,7 +42,7 @@ void Plant::waterIfNeeded() {
         Serial.print("Starting watering\n");
         Serial.print(this->getOutput());
         digitalWrite(this->getOutput(), LOW); // start pump
-        delay(1000 * 5); // ms * sec - 5 seconds
+        delay(5000); // 5 seconds
         digitalWrite(this->getOutput(), HIGH); //stop pump
         Serial.print("Stopped watering\n");
     }
