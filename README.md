@@ -1,8 +1,10 @@
 # Automated Garden Waterer
 A program to run the watering of a garden with soil moisture inputs and pump outputs.
 
-## MVP
+## MVP - Complete
 Using an Arduino Uno, the MVP will be a single pot watering apparatus that checks the moisture of the pot every eight hours and waters when the right moisture levels are detected. 
+
+![minimum viable product](./readme_assets/IMG_1199.JPG)
 
 ## Second phase
 Still using a single Arduino Uno, checking multiple pots with different moisture needs and providing sufficient watering for flourishing.
