@@ -40,8 +40,11 @@ void Plant::setDrynessLimit(int in) {
 void Plant::waterIfNeeded() {
     unsigned long startMillis = millis();
     if (this->getMoistureLevel() > this->getDrynessLimit()) { // while moisture levels are below desired level
-      digitalWrite(this->getOutput(), HIGH); // start pump
-      while (millis() - startMillis < 1000 * 60 * 5); // ms * sec * min
-      digitalWrite(this->getOutput(), LOW); //stop pump
+        Serial.print("Starting watering");
+        digitalWrite(this->getOutput(), LOW); // start pump
+        delay(5000);
+        // while (millis() - startMillis < 1000 * 60 * 5); // ms * sec * min
+        digitalWrite(this->getOutput(), HIGH); //stop pump
+        Serial.print("Stopped watering");
     }
 }
