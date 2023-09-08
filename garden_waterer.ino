@@ -3,7 +3,7 @@
 unsigned long startMillis = millis();
 unsigned long eightHours = 1000 * 60 * 60 * 8;
 
-Plant jade(A0, 3, 480); // plant object
+Plant jade(A0, 2, 200); // plant object
 
 void setup() {
     Serial.begin(9600);
@@ -15,7 +15,7 @@ void loop() {
     Serial.println();
     delay(3000);
     
-    // jade.waterIfNeeded();
+    jade.waterIfNeeded();
     
     // while (millis() - startMillis < eightHours); // delay 8 hours
 }
