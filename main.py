@@ -1,6 +1,12 @@
 import funcs
 
-connection = funcs.create_connection("localhost", "mysql", "", "test")
+db_name = "sm_app"
+
+connection = funcs.create_connection("localhost", "mysql", "", db_name)
+
+create_database = f"""CREATE DATABASE {db_name}"""
+
+funcs.create_database(connection, create_database)
 
 create_users_table = """
 CREATE TABLE IF NOT EXISTS users (
