@@ -1,18 +1,35 @@
-import mysql.connector
-from mysql.connector import Error
+import funcs
 
-def create_connection(host_name, user_name, user_password):
-    connection = None
-    try:
-        connection = mysql.connector.connect(
-            host=host_name,
-            user=user_name,
-            passwd=user_password
-        )
-        print("Connection to MySQL DB successful")
-    except Error as e:
-        print(f"The error '{e}' occurred")
+connection = funcs.create_connection("localhost", "mysql", "", "test")
 
-    return connection
+create_users_table = """
+CREATE TABLE IF NOT EXISTS users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+  age INTEGER,
+  gender VARCHAR(6),
+  nationality VARCHAR(200)
+);
+"""
 
-connection = create_connection("localhost", "mysql", "")
+# create the table
+funcs.execute_query(connection, create_users_table)
+
+create_users = """
+INSERT INTO
+  users (name, age, gender, nationality)
+VALUES
+  ('James', 25, 'male', 'USA'),
+  ('Leila', 32, 'female', 'France'),
+  ('Brigitte', 35, 'female', 'England'),
+  ('Mike', 40, 'male', 'Denmark'),
+  ('Elizabeth', 21, 'female', 'Canada');
+"""
+# add users
+funcs.execute_query(connection, create_users)
+
+select_users = "SELECT * FROM users"
+users = funcs.execute_read_query(connection, select_users)
+
+for user in users: # type: ignore
+    print(user)
