@@ -4,7 +4,7 @@ db_name = "sm_app"
 
 connection = funcs.create_connection("localhost", "mysql", "", db_name)
 
-create_database = f"""CREATE DATABASE {db_name}"""
+create_database = f"""CREATE DATABASE IF NOT EXISTS {db_name}"""
 
 funcs.create_database(connection, create_database)
 
