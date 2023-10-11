@@ -1,12 +1,12 @@
 import funcs
 
-db_name = "sm_app"
+db_name = "test"
 
-connection = funcs.create_connection("localhost", "mysql", "", db_name)
+# oconnect = funcs.create_connection_nodb("localhost", "mysql", "")
 
 create_database = f"""CREATE DATABASE IF NOT EXISTS {db_name}"""
 
-funcs.create_database(connection, create_database)
+# funcs.create_database(oconnect, create_database)
 
 create_users_table = """
 CREATE TABLE IF NOT EXISTS users (
@@ -17,6 +17,8 @@ CREATE TABLE IF NOT EXISTS users (
   nationality VARCHAR(200)
 );
 """
+
+connection = funcs.create_connection("localhost", "mysql", "", db_name)
 
 # create the table
 funcs.execute_query(connection, create_users_table)
