@@ -13,6 +13,8 @@ def create_connection_nodb(host_name, user_name, user_password):
     except Error as e:
         print(f"The error '{e}' occurred")
 
+    return connection
+
 def create_connection(host_name, user_name, user_password, db_name):
     connection = None
     try:
