@@ -41,3 +41,17 @@ users = funcs.execute_read_query(connection, select_users)
 
 for user in users: # type: ignore
     print(user)
+
+
+# For the garden waterer database
+# connect to the server
+# create the database
+# create tables for plant data
+# send request to arduino for data
+# receive data from arduino
+# store data in database
+# retrieve moisture data
+# if moisture level is below dryness level
+  # send command to arduino to water
+# else
+  # standby
