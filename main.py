@@ -4,6 +4,7 @@ import os
 # For the garden waterer database
 
 db_name = "garden_waterer"
+plant_name = "jade"
 
 # connect to the server
 oconnect = funcs.create_connection_nodb("192.168.1.188", "jeston", os.getenv("MARIA_DB_PASS"))
@@ -18,7 +19,7 @@ connection = funcs.create_connection("192.168.1.188", "jeston", os.getenv("MARIA
 
 # create tables for plant data
 plant_data_table = f"""
-CREATE TABLE IF NOT EXISTS jade(
+CREATE TABLE IF NOT EXISTS {plant_name}(
   id SERIAL PRIMARY KEY,
   datetime DATETIME NOT NULL,
   moisture INTEGER
@@ -28,15 +29,16 @@ funcs.execute_query(connection, plant_data_table)
 # send request to arduino for data
 # receive data from arduino
 # store data in database
-plant_data = """
+plant_data = f"""
 INSERT INTO
-  jade (datetime, moisture)
+  {plant_name} (datetime, moisture)
 VALUES
-  ();
+  (NOW(),135);
 """
+funcs.execute_query(connection, plant_data)
 
 # retrieve moisture data
-moisture_select = """SELECT moisture FROM jade;"""
+moisture_select = f"""SELECT moisture FROM {plant_name};"""
 moistures = funcs.execute_read_query(connection, moisture_select)
 
 for moisture in moistures: # type: ignore
