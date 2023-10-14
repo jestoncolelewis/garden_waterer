@@ -1,57 +1,45 @@
+# For the garden waterer database
 import funcs
 
-db_name = "test"
+db_name = "garden_waterer"
 
-oconnect = funcs.create_connection_nodb("localhost", "mysql", "")
+# connect to the server
+oconnect = funcs.create_connection_nodb("192.168.1.188", "jeston", "")
 
-create_database = f"""CREATE DATABASE IF NOT EXISTS {db_name}"""
+create_database = f"""CREATE DATABASE IF NOT EXISTS {db_name};"""
 
+# create the database
 funcs.create_database(oconnect, create_database)
 
-create_users_table = """
-CREATE TABLE IF NOT EXISTS users (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(50) NOT NULL,
-  age INTEGER,
-  gender VARCHAR(6),
-  nationality VARCHAR(200)
-);
-"""
+# reconnect
+connection = funcs.create_connection("192.168.1.188", "jeston", "", db_name)
 
-connection = funcs.create_connection("localhost", "mysql", "", db_name)
-
-# create the table
-funcs.execute_query(connection, create_users_table)
-
-create_users = """
-INSERT INTO
-  users (name, age, gender, nationality)
-VALUES
-  ('James', 25, 'male', 'USA'),
-  ('Leila', 32, 'female', 'France'),
-  ('Brigitte', 35, 'female', 'England'),
-  ('Mike', 40, 'male', 'Denmark'),
-  ('Elizabeth', 21, 'female', 'Canada');
-"""
-# add users
-funcs.execute_query(connection, create_users)
-
-select_users = "SELECT * FROM users"
-users = funcs.execute_read_query(connection, select_users)
-
-for user in users: # type: ignore
-    print(user)
-
-
-# For the garden waterer database
-# connect to the server
-# create the database
 # create tables for plant data
+plant_data_table = f"""
+CREATE TABLE IF NOT EXISTS jade(
+  id SERIAL PRIMARY KEY,
+  datetime DATETIME NOT NULL,
+  moisture INTEGER
+);"""
+funcs.execute_query(connection, plant_data_table)
+
 # send request to arduino for data
 # receive data from arduino
 # store data in database
+plant_data = """
+INSERT INTO
+  jade (datetime, moisture)
+VALUES
+  ();
+"""
+
 # retrieve moisture data
-# if moisture level is below dryness level
-  # send command to arduino to water
-# else
-  # standby
+moisture_select = """SELECT moisture FROM jade;"""
+moistures = funcs.execute_read_query(connection, moisture_select)
+
+for moisture in moistures: # type: ignore
+    print(moisture)
+    # if moisture level is below dryness level
+      # send command to arduino to water
+    # else
+      # standby
