@@ -1,10 +1,12 @@
-# For the garden waterer database
 import funcs
+import os
+
+# For the garden waterer database
 
 db_name = "garden_waterer"
 
 # connect to the server
-oconnect = funcs.create_connection_nodb("192.168.1.188", "jeston", "")
+oconnect = funcs.create_connection_nodb("192.168.1.188", "jeston", os.getenv("MARIA_DB_PASS"))
 
 create_database = f"""CREATE DATABASE IF NOT EXISTS {db_name};"""
 
@@ -12,7 +14,7 @@ create_database = f"""CREATE DATABASE IF NOT EXISTS {db_name};"""
 funcs.create_database(oconnect, create_database)
 
 # reconnect
-connection = funcs.create_connection("192.168.1.188", "jeston", "", db_name)
+connection = funcs.create_connection("192.168.1.188", "jeston", os.getenv("MARIA_DB_PASS"), db_name)
 
 # create tables for plant data
 plant_data_table = f"""
