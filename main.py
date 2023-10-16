@@ -1,5 +1,6 @@
 import funcs
 import os
+import serial
 
 # For the garden waterer database
 
@@ -28,12 +29,23 @@ funcs.execute_query(connection, plant_data_table)
 
 # send request to arduino for data
 # receive data from arduino
+ser = serial.Serial(
+    port="/dev/tty.usbmodem101",
+    baudrate=9600,
+)
+moisture_level = 0
+if ser.isOpen(): # type: ignore
+    s = ser.readline()
+    val = str(s)
+    pos = val.find("\\")
+    moisture_level = int(val[2:pos])
+
 # store data in database
 plant_data = f"""
 INSERT INTO
   {plant_name} (datetime, moisture)
 VALUES
-  (NOW(),135);
+  (NOW(),{moisture_level});
 """
 funcs.execute_query(connection, plant_data)
 
