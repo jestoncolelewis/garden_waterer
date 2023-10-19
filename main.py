@@ -1,11 +1,7 @@
 import funcs
 import os
 import serial
-
-ser = serial.Serial(
-    port="/dev/cu.usbmodem101",
-    baudrate=9600,
-)
+import time
 
 # For the garden waterer database
 db_name = "garden_waterer"
@@ -32,18 +28,20 @@ CREATE TABLE IF NOT EXISTS {plant_name}(
 funcs.execute_query(connection, plant_data_table)
 
 moisture_level = 0
-if ser.isOpen(): # type: ignore
-    # send request to arduino for data
-    t = 't'.encode().hex()
-    ser.write(bytes(t, "utf-8"))
-    ser.close()
-
-    # receive data from arduino
-    ser.open()
-    s = ser.readline()
-    val = s.decode()
-    moisture_level = int(val)
-    ser.close()
+arduino = serial.Serial(
+    port="/dev/cu.usbmodem101",
+    baudrate=115200,
+    # timeout=.1
+)
+time.sleep(1)
+arduino.reset_input_buffer()
+arduino.reset_output_buffer()
+if arduino.is_open:
+    print("Getting moisture level")
+    arduino.write("true".encode("utf-8"))
+    data = arduino.readline()
+    if data:
+        moisture_level = int(data)
 
 # store data in database
 plant_data = f"""
@@ -53,6 +51,7 @@ VALUES
   (NOW(),{moisture_level});
 """
 funcs.execute_query(connection, plant_data)
+print("Stored moisture data")
 
 # retrieve moisture data
 moisture_select = f"""SELECT moisture FROM {plant_name};"""
@@ -64,5 +63,3 @@ for moisture in moistures: # type: ignore
       # send command to arduino to water
     # else
       # standby
-
-ser.close()

@@ -1,26 +1,22 @@
 #include "plant.h"
 
-unsigned long previousMillis = 0;
-const long interval = 3600000; // 1 hour
-
 Plant jade(A0, 2, 480); // plant object
+String truth("true");
 
 void setup() {
-    Serial.begin(9600);
+    Serial.begin(115200);
     jade.setOutput(jade.getOutput());
     digitalWrite(jade.getOutput(), HIGH);
     jade.setInput(jade.getInput());
 }
 
 void loop() {
-  unsigned long currentMillis = millis();
-  if (currentMillis - previousMillis >= interval)  {
-    previousMillis = currentMillis;
-
-    jade.setMoistureLevel(); // set moisture levels
-    Serial.print(jade.getMoistureLevel());
-    Serial.println();
-  
-    jade.waterIfNeeded();
+  if (Serial.available() > 0) {
+    String activator = Serial.readString();
+    if (activator == truth)  {
+      jade.setMoistureLevel();
+      Serial.println(jade.getMoistureLevel());
+      jade.waterIfNeeded();
+    }
   }
 }
