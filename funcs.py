@@ -39,7 +39,7 @@ def create_database(connection, query):
         print(f"The error '{e}' occurred")
 
 def execute_query(connection, query):
-    cursor = connection.cursor()
+    cursor = connection.cursor(buffered=True)
     try:
         cursor.execute(query)
         connection.commit()
