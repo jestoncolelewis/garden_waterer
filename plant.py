@@ -1,12 +1,14 @@
 import time
 
-class Plant():
+class Plant:
     def __init__(self, name: str,dl:int) -> None:
         self.name = name
         self.drynessLimit = dl
         self.moistureLevel: int
     
     # getters/setters
+    def getName(self) -> str:
+        return self.name
     def getMoistureLevel(self) -> int:
         return self.moistureLevel
     def getDrynessLimit(self) -> int:
