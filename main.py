@@ -2,11 +2,13 @@ import funcs
 import os
 import serial
 import time
-from plant import plant
+from plant import Plant
+
+jade = Plant("jade", 480)
 
 # For the garden waterer database
 db_name = "garden_waterer"
-plant_name = "jade"
+plant_name = jade.getName
 
 # connect to the server
 oconnect = funcs.create_connection_nodb("192.168.1.188", "jeston", os.getenv("MARIA_DB_PASS"))
@@ -28,7 +30,6 @@ CREATE TABLE IF NOT EXISTS {plant_name}(
 );"""
 funcs.execute_query(connection, plant_data_table)
 
-moisture_level = 0
 arduino = serial.Serial(
     port="/dev/cu.usbmodem101",
     baudrate=115200,
@@ -42,14 +43,14 @@ if arduino.is_open:
     arduino.write("true".encode("utf-8"))
     data = arduino.readline()
     if data:
-        moisture_level = int(data)
+        jade.setMoistureLevel = int(data)
 
 # store data in database
 plant_data = f"""
 INSERT INTO
   {plant_name} (datetime, moisture)
 VALUES
-  (NOW(),{moisture_level});
+  (NOW(),{jade.getMoistureLevel});
 """
 funcs.execute_query(connection, plant_data)
 print("Stored moisture data")
