@@ -2,6 +2,7 @@ import funcs
 import os
 import serial
 import time
+from plant import plant
 
 # For the garden waterer database
 db_name = "garden_waterer"
