@@ -6,7 +6,7 @@ Using an Arduino Uno, the MVP will be a single pot watering apparatus that check
 
 ![minimum viable product](./readme_assets/IMG_1199.JPG)
 
-## Second phase
+## Second phase - Complete
 Still using a single Arduino Uno, checking multiple pots with different moisture needs and providing sufficient watering for flourishing.
 
 ## Third phase
