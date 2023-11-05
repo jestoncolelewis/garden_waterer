@@ -8,4 +8,4 @@ include_directories(.)
 add_executable(garden_waterer
         garden_waterer.ino
         plant.cpp
-        plant.h)
+        plant_cpp.h)
