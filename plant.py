@@ -5,7 +5,7 @@ class Plant:
     def __init__(self, name: str, dl: int) -> None:
         self.name = name
         self.drynessLimit = dl
-        self.moistureLevel: int
+        self.moistureLevel: int = 0
     
     # getters/setters
     def get_name(self) -> str:
