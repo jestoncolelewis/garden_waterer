@@ -65,6 +65,26 @@
 			[
 				1
 			]
+		},
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk -fcolor-diagnostics"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 2,
+					"path" : "/Users/jestonlewis/Repos/garden_waterer/."
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				5
+			]
 		}
 	],
 	"id" : "garden_waterer::@6890427a1f51a3e7e1df",
@@ -103,14 +123,17 @@
 			"name" : "Source Files",
 			"sourceIndexes" : 
 			[
-				1
+				1,
+				5
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				2
+				2,
+				3,
+				4
 			]
 		}
 	],
@@ -129,8 +152,24 @@
 		},
 		{
 			"backtrace" : 1,
+			"path" : "plant_cpp.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
 			"path" : "plant.h",
 			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "sql.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 1,
+			"path" : "main.c",
+			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"
