@@ -18,7 +18,7 @@ create_database = f"""CREATE DATABASE IF NOT EXISTS {db_name};"""
 # create the database
 funcs.create_database(o_connect, create_database)
 
-# reconnect
+# reconnect // setup env variables with CLion?
 connection = funcs.create_connection("192.168.1.188", "jeston", os.getenv("MARIA_DB_PASS"), db_name)
 
 # create tables for plant data
