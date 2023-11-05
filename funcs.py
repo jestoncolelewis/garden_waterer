@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 
+
 def create_connection_nodb(host_name, user_name, user_password):
     connection = None
     try:
@@ -14,6 +15,7 @@ def create_connection_nodb(host_name, user_name, user_password):
         print(f"The error '{e}' occurred")
 
     return connection
+
 
 def create_connection(host_name, user_name, user_password, db_name):
     connection = None
@@ -30,6 +32,7 @@ def create_connection(host_name, user_name, user_password, db_name):
 
     return connection
 
+
 def create_database(connection, query):
     cursor = connection.cursor()
     try:
@@ -37,6 +40,7 @@ def create_database(connection, query):
         print("Database created successfully")
     except Error as e:
         print(f"The error '{e}' occurred")
+
 
 def execute_query(connection, query):
     cursor = connection.cursor(buffered=True)
@@ -47,9 +51,9 @@ def execute_query(connection, query):
     except Error as e:
         print(f"The error '{e}' occurred")
 
+
 def execute_read_query(connection, query):
     cursor = connection.cursor()
-    result = None
     try:
         cursor.execute(query)
         result = cursor.fetchall()
