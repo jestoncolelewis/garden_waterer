@@ -133,7 +133,8 @@
 			[
 				2,
 				3,
-				4
+				4,
+				6
 			]
 		}
 	],
@@ -170,6 +171,11 @@
 			"compileGroupIndex" : 1,
 			"path" : "main.c",
 			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "serial_tool.h",
+			"sourceGroupIndex" : 2
 		}
 	],
 	"type" : "EXECUTABLE"

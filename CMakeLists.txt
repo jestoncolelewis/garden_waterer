@@ -10,5 +10,6 @@ add_executable(garden_waterer
         plant.cpp
         plant_cpp.h
         plant.h
-        sql.h
-        main.c)
+        sql_tool.h
+        main.c
+        serial_tool.h)
