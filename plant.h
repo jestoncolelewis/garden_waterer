@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <termios.h>
 
 typedef struct {
     char* name;
@@ -6,8 +7,8 @@ typedef struct {
     int drynessLimit;
 } Plant;
 
-void waterIfNeeded() {
-    if () {
+void waterIfNeeded(Plant plant) {
+    if (plant.moistureLevel > plant.drynessLimit) {
 
     }
 }
