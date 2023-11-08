@@ -49,13 +49,6 @@ cmake_ninja_workdir = /Users/jestonlewis/Repos/garden_waterer/cmake-build-debug/
 
 build cmake_object_order_depends_target_garden_waterer: phony || CMakeFiles/garden_waterer.dir
 
-build CMakeFiles/garden_waterer.dir/plant.cpp.o: CXX_COMPILER__garden_waterer_unscanned_Debug /Users/jestonlewis/Repos/garden_waterer/plant.cpp || cmake_object_order_depends_target_garden_waterer
-  DEP_FILE = CMakeFiles/garden_waterer.dir/plant.cpp.o.d
-  FLAGS = -g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk -fcolor-diagnostics
-  INCLUDES = -I/Users/jestonlewis/Repos/garden_waterer/.
-  OBJECT_DIR = CMakeFiles/garden_waterer.dir
-  OBJECT_FILE_DIR = CMakeFiles/garden_waterer.dir
-
 build CMakeFiles/garden_waterer.dir/main.c.o: C_COMPILER__garden_waterer_unscanned_Debug /Users/jestonlewis/Repos/garden_waterer/main.c || cmake_object_order_depends_target_garden_waterer
   DEP_FILE = CMakeFiles/garden_waterer.dir/main.c.o.d
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk -fcolor-diagnostics
@@ -71,7 +64,7 @@ build CMakeFiles/garden_waterer.dir/main.c.o: C_COMPILER__garden_waterer_unscann
 #############################################
 # Link the executable garden_waterer
 
-build garden_waterer: CXX_EXECUTABLE_LINKER__garden_waterer_Debug CMakeFiles/garden_waterer.dir/plant.cpp.o CMakeFiles/garden_waterer.dir/main.c.o
+build garden_waterer: C_EXECUTABLE_LINKER__garden_waterer_Debug CMakeFiles/garden_waterer.dir/main.c.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk
   OBJECT_DIR = CMakeFiles/garden_waterer.dir
   POST_BUILD = :

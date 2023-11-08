@@ -42,34 +42,6 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -std=gnu++14 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk -fcolor-diagnostics"
-				}
-			],
-			"includes" : 
-			[
-				{
-					"backtrace" : 2,
-					"path" : "/Users/jestonlewis/Repos/garden_waterer/."
-				}
-			],
-			"language" : "CXX",
-			"languageStandard" : 
-			{
-				"backtraces" : 
-				[
-					1
-				],
-				"standard" : "14"
-			},
-			"sourceIndexes" : 
-			[
-				1
-			]
-		},
-		{
-			"compileCommandFragments" : 
-			[
-				{
 					"fragment" : "-g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk -fcolor-diagnostics"
 				}
 			],
@@ -83,7 +55,7 @@
 			"language" : "C",
 			"sourceIndexes" : 
 			[
-				5
+				0
 			]
 		}
 	],
@@ -101,7 +73,7 @@
 				"role" : "flags"
 			}
 		],
-		"language" : "CXX"
+		"language" : "C"
 	},
 	"name" : "garden_waterer",
 	"nameOnDisk" : "garden_waterer",
@@ -113,28 +85,17 @@
 	"sourceGroups" : 
 	[
 		{
-			"name" : "",
+			"name" : "Source Files",
 			"sourceIndexes" : 
 			[
 				0
 			]
 		},
 		{
-			"name" : "Source Files",
-			"sourceIndexes" : 
-			[
-				1,
-				5
-			]
-		},
-		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				2,
-				3,
-				4,
-				6
+				1
 			]
 		}
 	],
@@ -142,40 +103,14 @@
 	[
 		{
 			"backtrace" : 1,
-			"path" : "garden_waterer.ino",
+			"compileGroupIndex" : 0,
+			"path" : "main.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "plant.cpp",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "plant_cpp.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"path" : "plant.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"path" : "sql_tool.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 1,
-			"path" : "main.c",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
 			"path" : "serial_tool.h",
-			"sourceGroupIndex" : 2
+			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"
