@@ -163,7 +163,7 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "sql.h",
+			"path" : "sql_tool.h",
 			"sourceGroupIndex" : 2
 		},
 		{
