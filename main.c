@@ -1,7 +1,11 @@
 #include "plant.h"
 #include "serial_tool.h"
+#include "sql_tool.h"
 
 #define PORT "/dev/ttyUSB"
+#define HOST "192.168.1.188"
+#define USER "jeston"
+#define PASS ""
 
 int main(void) {
     Plant jade;
@@ -13,23 +17,25 @@ int main(void) {
     db_name = "garden_waterer";
 
     // connect to server
-
+    int o_connect;
+    o_connect = create_connect_nodb(HOST,USER,PASS);
 
     // create database
-    char *db_creation_statement, db_name;
-    db_creation_statement = "CREATE DATABSE IF NOTE EXISTS %c";
+    char *db_creation_statement;
+    db_creation_statement = "CREATE DATABASE IF NOTE EXISTS %c", db_name;
 
-    create_database();
+    create_database(o_connect, db_creation_statement);
 
     // reconnect to server
-    connection = create_connect();
+    int connection;
+    connection = create_connect(HOST,USER,PASS);
 
     // create tables for plant data
     char *tbl_creation_statement;
     tbl_creation_statement = "CREATE TABLE IF NOT EXISTS %c("
                              "id, SERIAL PRIMARY KEY,"
                              "datetime DATETIME NOT NULL,"
-                             "moisture INTEGER);", plant_name;
+                             "moisture INTEGER);", jade.name;
     execute_query(connection, tbl_creation_statement);
 
     // open serial between arduino
@@ -57,7 +63,7 @@ int main(void) {
 
     // retrieve moisture data
     char* moisture_select;
-    moisture_select = "SELECT moisture FROM %c", plant_name;
+    moisture_select = "SELECT moisture FROM %c", jade.name;
     execute_read_query(connection, moisture_select);
 
     bool water = waterIfNeeded(jade);
