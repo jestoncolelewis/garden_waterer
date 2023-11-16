@@ -4,7 +4,7 @@ int create_connect_nodb(char* host, char* user, char* pass) {
     return 0;
 }
 
-int create_connect(char* host, char* user, char* pass) {
+int create_connect(char* host, char* user, char* pass, char* db) {
     return 0;
 }
 

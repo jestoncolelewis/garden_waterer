@@ -28,7 +28,7 @@ int main(void) {
 
     // reconnect to server
     int connection;
-    connection = create_connect(HOST,USER,PASS);
+    connection = create_connect(HOST,USER,PASS,db_name);
 
     // create tables for plant data
     char *tbl_creation_statement;
