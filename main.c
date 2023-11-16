@@ -13,16 +13,14 @@ int main(void) {
     jade.moistureLevel = 0;
     jade.drynessLimit = 480;
 
-    char *db_name;
-    db_name = "garden_waterer";
+    char db_name[] = "garden_waterer";
 
     // connect to server
     int o_connect;
     o_connect = create_connect_nodb(HOST,USER,PASS);
 
     // create database
-    char *db_creation_statement;
-    db_creation_statement = "CREATE DATABASE IF NOTE EXISTS %c", db_name;
+    char db_creation_statement[] = { "CREATE DATABASE IF NOT EXISTS ", db_name, ";" };
 
     create_database(o_connect, db_creation_statement);
 
@@ -31,11 +29,10 @@ int main(void) {
     connection = create_connect(HOST,USER,PASS,db_name);
 
     // create tables for plant data
-    char *tbl_creation_statement;
-    tbl_creation_statement = "CREATE TABLE IF NOT EXISTS %c("
-                             "id, SERIAL PRIMARY KEY,"
-                             "datetime DATETIME NOT NULL,"
-                             "moisture INTEGER);", jade.name;
+    char tbl_creation_statement[] = { "CREATE TABLE IF NOT EXISTS ", jade.name, "(",
+                                      "id, SERIAL PRIMARY KEY,"
+                                      "datetime DATETIME NOT NULL,"
+                                      "moisture INTEGER);" };
     execute_query(connection, tbl_creation_statement);
 
     // open serial between arduino
@@ -54,16 +51,14 @@ int main(void) {
     jade.moistureLevel = moisture;
 
     // store data in database
-    char* store_plant_data;
-    store_plant_data = "INSERT INTO"
-                       "    %c (datetime, moisture)"
-                       "VALUES"
-                       "    (NOW(), %l", jade.name, jade.moistureLevel;
+    char store_plant_data[] = { "INSERT INTO",
+                                jade.name," (datetime, moisture)"
+                                "VALUES"
+                                "(NOW(), ", jade.moistureLevel };
     execute_query(connection, store_plant_data);
 
     // retrieve moisture data
-    char* moisture_select;
-    moisture_select = "SELECT moisture FROM %c", jade.name;
+    char moisture_select[] = { "SELECT moisture FROM ", jade.name };
     execute_read_query(connection, moisture_select);
 
     bool water = waterIfNeeded(jade);
