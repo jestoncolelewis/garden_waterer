@@ -1,3 +1,4 @@
+#include <stdarg.h>
 #include "plant.h"
 #include "serial_tool.h"
 #include "sql_tool.h"
@@ -9,11 +10,17 @@
 
 char* concat(int count, ...) {
     va_list list;
-    char* result;
-
+    unsigned long size = 0;
+    va_start(list,count);
     for (int i = 0; i < count; ++i) {
-
+        size += strlen(va_arg(list, char*));
     }
+    char* result = malloc(size + 1);
+
+    for (int i = 0; i < count; ++i)
+        stpcpy(result, va_arg(list, char*));
+
+    va_end(list);
 
     return result;
 }

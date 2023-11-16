@@ -1,4 +1,4 @@
-#include <mysql.h>
+//#include <mysql.h>
 
 int create_connect_nodb(char* host, char* user, char* pass) {
     return 0;
