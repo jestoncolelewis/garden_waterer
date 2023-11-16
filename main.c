@@ -7,6 +7,17 @@
 #define USER "jeston"
 #define PASS ""
 
+char* concat(int count, ...) {
+    va_list list;
+    char* result;
+
+    for (int i = 0; i < count; ++i) {
+
+    }
+
+    return result;
+}
+
 int main(void) {
     Plant jade;
     jade.name = "jade";
@@ -20,7 +31,7 @@ int main(void) {
     o_connect = create_connect_nodb(HOST,USER,PASS);
 
     // create database
-    char db_creation_statement[] = { "CREATE DATABASE IF NOT EXISTS ", db_name, ";" };
+    char* db_creation_statement = concat(3, "CREATE DATABASE IF NOT EXISTS ", db_name, ";");
 
     create_database(o_connect, db_creation_statement);
 
@@ -29,10 +40,10 @@ int main(void) {
     connection = create_connect(HOST,USER,PASS,db_name);
 
     // create tables for plant data
-    char tbl_creation_statement[] = { "CREATE TABLE IF NOT EXISTS ", jade.name, "(",
+    char* tbl_creation_statement = concat(3, "CREATE TABLE IF NOT EXISTS ", jade.name, "("
                                       "id, SERIAL PRIMARY KEY,"
                                       "datetime DATETIME NOT NULL,"
-                                      "moisture INTEGER);" };
+                                      "moisture INTEGER);");
     execute_query(connection, tbl_creation_statement);
 
     // open serial between arduino
@@ -51,14 +62,14 @@ int main(void) {
     jade.moistureLevel = moisture;
 
     // store data in database
-    char store_plant_data[] = { "INSERT INTO",
-                                jade.name," (datetime, moisture)"
-                                "VALUES"
-                                "(NOW(), ", jade.moistureLevel };
+    char* store_plant_data = concat(4, "INSERT INTO",
+                                        jade.name," (datetime, moisture)"
+                                        "VALUES"
+                                        "(NOW(), ", jade.moistureLevel);
     execute_query(connection, store_plant_data);
 
     // retrieve moisture data
-    char moisture_select[] = { "SELECT moisture FROM ", jade.name };
+    char* moisture_select = concat(2, "SELECT moisture FROM ", jade.name);
     execute_read_query(connection, moisture_select);
 
     bool water = waterIfNeeded(jade);
