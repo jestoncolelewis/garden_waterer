@@ -15,6 +15,11 @@ int main(void) {
     jade.moistureLevel = 0;
     jade.drynessLimit = 480;
 
+    enum insert_params {
+        moisture,
+        par_count
+    };
+
     // connect to server
     MYSQL * mysql;
     mysql_init(mysql);
@@ -45,19 +50,23 @@ int main(void) {
     if (n < 0)
         fputs("write() of 4 bytes failed",stderr);
 
-    long moisture;
-    moisture = read(fd,"AR\r",2); // update second argument
+    long data_moisture;
+    data_moisture = read(fd,"AR\r",2); // update second argument
 
-    jade.moistureLevel = moisture;
+    jade.moistureLevel = data_moisture;
 
     // store data in database
     MYSQL_STMT * insert;
+    MYSQL_BIND insert_bind [par_count] = {0};
     insert = mysql_stmt_init(mysql);
     char* store_plant_data = "INSERT INTO"
                              "jade(datetime, moisture)"
                              "VALUES"
                              "(NOW(), " /*jade.moistureLevel*/;
     mysql_stmt_prepare(insert,store_plant_data,strlen(store_plant_data));
+    insert_bind [moisture].buffer_type = MYSQL_TYPE_LONG;
+    insert_bind [moisture].buffer = (long *) & data_moisture;
+    mysql_stmt_bind_param(insert,insert_bind);
     mysql_stmt_execute(insert);
     mysql_stmt_close(insert);
 
