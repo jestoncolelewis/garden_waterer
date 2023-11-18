@@ -21,6 +21,7 @@ int main(void) {
     };
 
     // connect to server
+    mysql_library_init(0, NULL, NULL);
     MYSQL * mysql;
     mysql_init(mysql);
     mysql_real_connect(mysql,HOST,USER,PASS,NULL,PORT,NULL,0);
@@ -85,6 +86,7 @@ int main(void) {
     }
 
     close(fd);
+    mysql_library_end();
 
     return 0;
 }
