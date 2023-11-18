@@ -1,29 +1,13 @@
-#include <stdarg.h>
+#include <mariadb/mysql.h>
 #include "plant.h"
 #include "serial_tool.h"
-#include "sql_tool.h"
 
-#define PORT "/dev/ttyUSB"
+#define SERIAL "/dev/ttyUSB"
+#define PORT 0
 #define HOST "192.168.1.188"
 #define USER "jeston"
 #define PASS ""
-
-char* concat(int count, ...) {
-    va_list list;
-    unsigned long size = 0;
-    va_start(list,count);
-    for (int i = 0; i < count; ++i) {
-        size += strlen(va_arg(list, char*));
-    }
-    char* result = malloc(size + 1);
-
-    for (int i = 0; i < count; ++i)
-        stpcpy(result, va_arg(list, char*));
-
-    va_end(list);
-
-    return result;
-}
+#define DB "garden_waterer"
 
 int main(void) {
     Plant jade;
@@ -31,31 +15,29 @@ int main(void) {
     jade.moistureLevel = 0;
     jade.drynessLimit = 480;
 
-    char db_name[] = "garden_waterer";
-
     // connect to server
-    int o_connect;
-    o_connect = create_connect_nodb(HOST,USER,PASS);
+    MYSQL mysql;
+    mysql_init(&mysql);
+    mysql_real_connect(&mysql,HOST,USER,PASS,NULL,PORT,NULL,0);
 
     // create database
-    char* db_creation_statement = concat(3, "CREATE DATABASE IF NOT EXISTS ", db_name, ";");
+    char* db_creation_statement = "CREATE DATABASE IF NOT EXISTS garden_waterer;";
 
-    create_database(o_connect, db_creation_statement);
+    mysql_real_query(&mysql, db_creation_statement, strlen(db_creation_statement));
 
     // reconnect to server
-    int connection;
-    connection = create_connect(HOST,USER,PASS,db_name);
+    mysql_real_connect(&mysql,HOST,USER,PASS,DB,PORT,NULL,0);
 
     // create tables for plant data
-    char* tbl_creation_statement = concat(3, "CREATE TABLE IF NOT EXISTS ", jade.name, "("
+    char* tbl_creation_statement = "CREATE TABLE IF NOT EXISTS jade("
                                       "id, SERIAL PRIMARY KEY,"
                                       "datetime DATETIME NOT NULL,"
-                                      "moisture INTEGER);");
-    execute_query(connection, tbl_creation_statement);
+                                      "moisture INTEGER);";
+    mysql_real_query(&mysql, tbl_creation_statement, strlen(tbl_creation_statement));
 
     // open serial between arduino
     int fd;
-    fd = open_port(PORT);
+    fd = open_port(SERIAL);
 
     configure_port(fd);
 
@@ -69,15 +51,15 @@ int main(void) {
     jade.moistureLevel = moisture;
 
     // store data in database
-    char* store_plant_data = concat(4, "INSERT INTO",
-                                        jade.name," (datetime, moisture)"
-                                        "VALUES"
-                                        "(NOW(), ", jade.moistureLevel);
-    execute_query(connection, store_plant_data);
+    char* store_plant_data = "INSERT INTO"
+                             "jade(datetime, moisture)"
+                             "VALUES"
+                             "(NOW(), " /*jade.moistureLevel*/;
+    mysql_real_query(&mysql, store_plant_data, strlen(store_plant_data));
 
     // retrieve moisture data
-    char* moisture_select = concat(2, "SELECT moisture FROM ", jade.name);
-    execute_read_query(connection, moisture_select);
+    char* moisture_select = "SELECT moisture FROM jade";
+    mysql_real_query(&mysql, moisture_select, strlen(db_creation_statement));
 
     bool water = waterIfNeeded(jade);
 
