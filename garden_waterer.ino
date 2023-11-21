@@ -1,5 +1,3 @@
-#include "plant.h"
-
 Plant jade(A0, 2, 480); // plant object
 String truth("true");
 
@@ -15,8 +13,7 @@ void loop() {
     String activator = Serial.readString();
     if (activator == truth)  {
       jade.setMoistureLevel();
-      Serial.println(jade.getMoistureLevel());
-      jade.waterIfNeeded();
+      digitalWrite(jade.getOutput(), LOW);
     }
   }
 }
