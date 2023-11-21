@@ -8,4 +8,5 @@ include_directories(.)
 add_executable(garden_waterer
         main.c
         serial_tool.h
+        sql_tool.h
 )
