@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
     jade.moistureLevel = 0;
     jade.drynessLimit = 480;
 
-    db_setup(HOST,argv[1],argv[1],DB,PORT);
+    db_setup(HOST,argv[0],argv[1],DB,PORT);
 
     // open serial between arduino
     int fd;
