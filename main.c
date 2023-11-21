@@ -5,17 +5,15 @@
 #define SERIAL "/dev/ttyUSB"
 #define PORT 0
 #define HOST "192.168.1.188"
-#define USER "jeston"
-#define PASS ""
 #define DB "garden_waterer"
 
-int main(void) {
+int main(int argc, char* argv[]) {
     Plant jade;
     jade.name = "jade";
     jade.moistureLevel = 0;
     jade.drynessLimit = 480;
 
-    db_setup(HOST,USER,PASS,DB,PORT);
+    db_setup(HOST,argv[1],argv[1],DB,PORT);
 
     // open serial between arduino
     int fd;
