@@ -2,8 +2,8 @@
 #include "serial_tool.h"
 #include "sql_tool.h"
 
-#define SERIAL "/dev/ttyUSB"
-#define PORT 0
+#define SERIAL "/dev/ttyACM0/"
+#define PORT 3306
 #define HOST "192.168.1.188"
 #define DB "garden_waterer"
 
