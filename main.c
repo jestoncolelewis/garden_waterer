@@ -10,13 +10,13 @@
 int main(int argc, char* argv[]) {
     Plant jade;
     jade.name = "jade";
-    jade.moistureLevel = 0;
+    jade.moistureLevel = 500;
     jade.drynessLimit = 480;
 
-    db_setup(HOST,argv[0],argv[1],DB,PORT);
+    MYSQL mysql = db_setup(HOST,argv[1],argv[2],DB,PORT);
 
     // open serial between arduino
-    int fd;
+    /* int fd;
     fd = open_port(SERIAL);
 
     configure_port(fd);
@@ -28,18 +28,17 @@ int main(int argc, char* argv[]) {
     long data_moisture;
     data_moisture = read(fd,"AR\r",2); // update second argument
 
-    jade.moistureLevel = data_moisture;
+    jade.moistureLevel = data_moisture;*/
 
-    process(jade);
+    process(jade, &mysql);
 
-    bool water = waterIfNeeded(jade);
+    /* bool water = waterIfNeeded(jade);
 
     if (water == true) {
         write(fd,"true\r",5);
     }
 
-    close(fd);
-    mysql_library_end();
+    close(fd); */
 
     return 0;
 }

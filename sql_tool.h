@@ -1,54 +1,74 @@
 #include <mariadb/mysql.h>
 
-void db_setup(char* host, char* user, char* pass, char* db, char* port) {
+#define CREATE_TABLE "CREATE TABLE IF NOT EXISTS jade(id SERIAL PRIMARY KEY, timestamp TIMESTAMP, moisture INTEGER);"
+
+#define INSERT "INSERT INTO jade(moisture) VALUES(?)"
+
+#define SELECT "SELECT moisture FROM jade"
+
+
+MYSQL db_setup(char* host, char* user, char* pass, char* db, int port) {
     // connect to server
-    mysql_library_init(0, NULL, NULL);
-    MYSQL * mysql;
-    mysql_init(mysql);
-    mysql_real_connect(mysql,host,user,pass,NULL,port,NULL,0);
-
-    // create database
-    char* db_creation_statement = "CREATE DATABASE IF NOT EXISTS garden_waterer;";
-
-    mysql_real_query(mysql, db_creation_statement, strlen(db_creation_statement));
-
-    // reconnect to server
-    mysql_real_connect(mysql,host,user,pass,db,port,NULL,0);
+    MYSQL *mysql;
+    mysql = mysql_init(NULL);
+    if(!mysql_real_connect(mysql,host,user,pass,db,port,NULL,0)) {
+        fprintf(stderr, "Error while connecting: %s\n", mysql_error(mysql));
+        exit(0);
+    }
 
     // create tables for plant data
-    char* tbl_creation_statement = "CREATE TABLE IF NOT EXISTS jade("
-                                   "id, SERIAL PRIMARY KEY,"
-                                   "datetime DATETIME NOT NULL,"
-                                   "moisture INTEGER);";
-    mysql_real_query(mysql,tbl_creation_statement,strlen(tbl_creation_statement));
+    if(mysql_query(mysql,CREATE_TABLE)) {
+        fprintf(stderr, "Error while creating table: %s\n", mysql_error(mysql));
+        exit(0);
+    }
+
+    return *mysql;
 }
 
-void process(Plant plant) {
-    enum insert_params {
-        moisture,
-        par_count
-    };
-
+void process(Plant plant, MYSQL *mysql) {
     // store data in database
     MYSQL_STMT * insert;
-    MYSQL_BIND insert_bind [par_count] = {0};
+    MYSQL_BIND insert_bind[1];
+    int param_count;
+    int moisture;
+
     insert = mysql_stmt_init(mysql);
-    char* store_plant_data = "INSERT INTO"
-                             "jade(datetime, moisture)"
-                             "VALUES"
-                             "(NOW(), " /*jade.moistureLevel*/;
-    mysql_stmt_prepare(insert,store_plant_data,strlen(store_plant_data));
-    insert_bind [moisture].buffer_type = MYSQL_TYPE_LONG;
-    insert_bind [moisture].buffer = (long *) & plant.moistureLevel;
-    mysql_stmt_bind_param(insert,insert_bind);
-    mysql_stmt_execute(insert);
+
+    if(mysql_stmt_prepare(insert,INSERT,strlen(INSERT))) {
+        fprintf(stderr, "Error while creating prepared statement: %s\n", mysql_stmt_error(insert));
+        exit(0);
+    }
+
+    param_count = mysql_stmt_param_count(insert);
+    if(param_count != 1) {
+        fprintf(stderr, " invalid parameter count returned by MYSQL\n");
+        exit(0);
+    }
+
+    memset(insert_bind, 0, sizeof(insert_bind));
+
+    insert_bind[0].buffer_type = MYSQL_TYPE_LONG;
+    insert_bind[0].buffer = (char *)&moisture;
+    insert_bind[0].is_null = 0;
+    insert_bind[0].length = 0;
+
+    if(mysql_stmt_bind_param(insert,insert_bind)) {
+        fprintf(stderr, "Error while creating bound values: %s\n", mysql_stmt_error(insert));
+        exit(0);
+    }
+
+    moisture = plant.moistureLevel;
+
+    if(mysql_stmt_execute(insert)) {
+        fprintf(stderr, "Error while executing statement: %s\n", mysql_stmt_error(insert));
+        exit(0);
+    }
     mysql_stmt_close(insert);
 
-    // retrieve moisture data
-    MYSQL_STMT * select;
-    char * moisture_select = "SELECT moisture FROM jade";
+    // retrieve moisture data TODO
+    /* MYSQL_STMT * select;
     select = mysql_stmt_init(mysql);
-    mysql_stmt_prepare(select,moisture_select,strlen(moisture_select));
+    mysql_stmt_prepare(select,SELECT,strlen(SELECT));
     mysql_stmt_execute(select);
-    mysql_stmt_close(select);
+    mysql_stmt_close(select); */
 }

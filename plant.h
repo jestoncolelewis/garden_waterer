@@ -5,8 +5,8 @@
 
 typedef struct {
     char* name;
-    long moistureLevel;
-    long drynessLimit;
+    int moistureLevel;
+    int drynessLimit;
 } Plant;
 
 bool waterIfNeeded(Plant plant) {
