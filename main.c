@@ -40,5 +40,6 @@ int main(int argc, char* argv[]) {
 
     close(fd); */
 
+    mysql_close(NULL);
     return 0;
 }
